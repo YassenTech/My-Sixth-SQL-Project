@@ -1,0 +1,109 @@
+Functions Used in My Sixth SQL Project
+
+TRIM
+
+What it does
+TRIM removes extra spaces from the beginning and end of text values.
+Why it was used
+Many datasets contain hidden spaces that users accidentally type when entering information. These spaces make values appear identical but SQL treats them as different entries. Removing these spaces makes the data consistent and prevents issues when filtering or grouping text values.
+
+ISNULL
+
+What it does
+ISNULL replaces missing values (NULL values) with another value that you choose.
+Why it was used
+Datasets often contain missing information. Instead of leaving empty values, they were replaced with 0 so calculations and results remain readable and easier to analyze.
+
+NULLIF
+
+What it does
+NULLIF compares two values and returns NULL if they are equal.
+Why it was used
+It was used as a safety measure to prevent divide-by-zero errors. If a value that would cause a division problem appears, it converts that value to NULL so the calculation does not crash.
+
+CEILING
+
+What it does
+CEILING rounds a number up to the nearest whole number.
+
+Why it was used
+Some numerical values may contain decimals that are not needed. Rounding up ensures the result becomes a clean whole number.
+Example concept:
+10.1 becomes 11
+10.9 becomes 11
+
+SUM
+
+What it does
+SUM adds together every value in a column to produce a total.
+Why it was used
+This function allows the dataset to calculate totals such as the overall value of a column. It is commonly used in analytics when calculating totals like income, revenue, or scores.
+
+COALESCE
+
+What it does
+COALESCE returns the first value that is not NULL from a list of values.
+Why it was used
+Sometimes data may contain missing values. This function ensures that if the first value is missing, SQL automatically selects the next available value instead.
+It is useful for making sure queries still return usable data.
+
+ABS
+
+What it does
+ABS converts negative numbers into positive numbers.
+Why it was used
+This function shows the distance of a number from zero, ignoring whether the number was positive or negative.
+Example concept:
+-10 becomes 10
+10 stays 10
+This is useful when measuring differences between numbers.
+
+STRING_AGG
+
+What it does
+STRING_AGG combines values from multiple rows into one single text string, separated by a chosen character.
+Why it was used
+This allows many row values to be merged together into a readable list instead of appearing on separate rows.
+This is useful for summaries or creating compact reports.
+
+CAST
+
+What it does
+CAST converts one datatype into another datatype.
+Why it was used
+It was used to convert numeric values into text so they could be combined into a long string. This also bypasses SQL’s default character length limit when aggregating large text results.
+
+ROW_NUMBER
+What it does
+ROW_NUMBER assigns a unique number to each row in a result set.
+Why it was used
+This creates a row counter that can rank or organize rows based on a condition such as highest income or another sorted column.
+It is often used for ranking, pagination, or identifying row order.
+
+OVER
+
+What it does
+OVER defines the set of rows that a window function should operate on.
+Why it was used
+Some functions need to look at multiple rows instead of just one row. The OVER clause tells SQL how those rows should be grouped or ordered for the calculation.
+It is commonly used with ranking and comparison functions.
+
+LAG
+
+What it does
+LAG retrieves a value from the previous row in a dataset.
+Why it was used
+This allows comparisons between rows. For example, you can compare the current value with the previous value to detect increases, decreases, or trends.
+This is commonly used in financial analysis and trend tracking.
+
+Project Skill Summary
+This project demonstrates understanding of:
+
+Data cleaning techniques
+Handling missing values
+Preventing calculation errors
+Aggregating and summarizing data
+Converting datatypes
+Ranking rows
+Comparing values between rows
+These are core SQL skills used in data analysis and database management.
