@@ -1,0 +1,83 @@
+
+ select * from Customers
+
+--removed ghost spaces from the start and end of each text in the specified column
+ select TRIM(Gender) As RemovedGhostSpaces From Customers;
+
+ --removed ghost spaces from the start and end of each text in the specified
+ select TRIM(Profession) As RemovedGhostSpaces From Customers;
+
+ --used a specific database
+ USE MySixthSQLProject;	
+
+ --changed the datatype to int sense trim doesnt work with the tinyint datatype
+ ALTER TABLE dbo.Customers
+ ALTER COLUMN AGE INT
+
+ --checked the datatypes for each column 
+ SELECT COLUMN_NAME, DATA_TYPE
+ FROM INFORMATION_SCHEMA.COLUMNS
+ WHERE TABLE_NAME = 'Customers'
+
+ --changed the datatypes for these two columns (age and Spending_Score_1_100)
+ ALTER TABLE dbo.Customers
+ ALTER COLUMN Spending_Score_1_100 INT
+ 
+ /*Instead of a value in a column is null it will not show up as null 
+ it will show up as 0*/
+ SELECT ISNULL(Annual_Income, 0) As MakesANullValueShowUpAs0 From Customers;
+
+ --Stops the pc from crashing when dividing by 0
+ Select Spending_Score_1_100 / NULLIF(Spending_Score_1_100, 0) As StopsThePCFromCrashingWhenDividingBy0 From Customers
+
+ --Rounds Up A Number To Thee Closest Number
+ Select CEILING(Spending_Score_1_100) As RoundsUpANumberToTheClosestNumber From Customers
+
+ --Makes Every Value In A Specific Column Into One Big Total
+  Select SUM(Annual_Income) As MakesEveryValueInASpecificColumnIntoOneBigTotal From Customers
+
+  --picks the first value that isnt empty from a specific column 
+  Select Spending_Score_1_100, COALESCE (Spending_Score_1_100, 0) As PicksTheFirstValueFromASpecificColumn From Customers
+
+  --So What Im Gonna Do Is Learn New Commands Then Use Those Commands To Fix This DataSet
+  
+  /*removes the minus sign to show the distance a number is from zero
+  EXAMPLE : -10 Becomes 10 
+  EXAMPLE :  10 stays 10*/
+ SELECT ABS(Spending_Score_1_100 - 80) As TurnsAnyNegativeNumberIntoAPositiveOne From Customers
+
+ --failed string command im gonna perform a fix 
+ SELECT STRING_AGG(Age, '; ') FROM Customers
+
+
+ 
+ /*how this fix works.
+ Using CAST(...AS VARCHAR(MAX))
+ Bypasses The 8000 Character limit allowing the list to be as long as you need*/
+ 
+
+ 
+  /*how this fix works.
+ Using CAST(...AS VARCHAR(MAX))
+ Bypasses The 8000 Character limit allowing the list to be as long as you need*/
+ 
+ 
+   /*takes data from many rows and squishes them 
+ into a single string separated by a character you choose.*/
+ SELECT STRING_AGG(CAST(Age AS VARCHAR(MAX)), '; ') FROM Customers
+
+ /*adds a number beside each row 
+ think of it as a row counter for each row*/
+ SELECT Profession, 
+ ROW_NUMBER() OVER(ORDER BY Annual_Income DESC) As RowCounter From Customers
+
+ /*If Youre Wondering What "OVER" Does It Just Tells A Function To Look At A Set Of Rows Instead Of A Single
+ What LAG Does : Fetches A Value From The Previous Row So You Can Compare It To The Current One.
+
+ Heres An Example 
+ Row 1: Current 15000 I	Previous : NULL 
+ Row 2: Current 35000 I Previous : 15000
+ Row 3: Current 86000 I Previous : 35000 
+
+ And So On.*/
+ SELECT Annual_Income,LAG(Annual_Income) OVER(Order BY CustomerID) As ComparesPreviousValuesToTheCurrentOne From Customers
